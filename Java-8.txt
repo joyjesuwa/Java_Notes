@@ -1,0 +1,624 @@
+Anonymous Inner Class:-
+This is used for reduce the number for class creation....For Ex: If you have a class and It has three methods and It has child class and in that class you need a method from parent class and the implementation differs...So for single Implementation changes you need not to create this child class...You can simple create an object for that and you can override the implementation you want.
+
+Parent child = new Parent() {		
+	void findPartner() {
+	     System.out.println("Great...!"); //This is Anonymous Inner Class inside the Concrete Class
+			} 	
+		};
+
+For this impl we wont create any class for this...But internally Itself create a class for it...Ex: If this inner class is inside the Runner.class...So it will create Runner$1.class...We can see it in our system folder.
+
+Anonymous --> Without any identity, nameless.
+Different ways to implement Anonymous Inner Class:
+Using Concrete Class
+Using Abstract Class
+Using Interface
+Using Method Arguments
+
+===============================================================================================================
+Lambda Expression:
+Lambda Function is a nameless function
+It is used to enable the functional programming...Basically Java is Object oriented programming OOPs..So additionally to enable Functional programming style Lambda function is used.
+
+To invoke/call/use a lambda expression functional interface is required. 
+Functional Interface reference can be used to refer lambda expression.
+If an interface that you are dealing with is a functional interface then we can make use of lambda there.
+
+Traditional style:
+public void print(){
+  System.out.prientln("Good");
+}
+
+Lambda or functional style:
+
+() -> System.out.prientln("Good");
+
+It is Nameless
+No need Access Modifier
+No Need return type because the compiler will identify it automatically
+If there is only one line of statement inside function no need {}
+If there is return keyword inside function then {} is mandatory.
+For returning the value return keyword is not mandatory
+If there is only one argument is No need ()...More than one then () is mandatory
+
+Traditional style:
+public void add(int a, int b){
+  return a + b;
+}
+
+Lambda or functional style:
+
+(a, b) -> {return a + b};
+
+=============================================================================================
+Interface:-
+Interface methods are by default abstract and public
+Interface attributes are by default public, static, final
+Interface can have any no., of unimplemented methods
+No implemented methods allowed. 
+
+Functional Interfaces:-
+If an Interface contains only one Abstract method, then it is called as Functional Interface. SAM (Single Abstract Method) Interface is another name. To denote it @FunctionalInterface....It is just for informative and it will make the interface strict to check whether there is only one Abstract method.
+In Functional Interface there should be only one method (abstract)...There should not be multiple methods and we can also add multiple method if the method is in Object class...like toString, haseCode, equals, etc. and also default methods...
+Functional Interface with Inheritance --> If there is parent interface and it is Annotated with Functional Interface and it has single abstract method and we create another interface and extend it with the parent interface...Then the child interface is also a Functional Interface...So all parent's qualities will be inherited to child...So All ready the parent has one method it is also the child's method. We cannot add another method in the child interface..
+==========================================================================================================================
+Before Java 1.8, In Interface we cannot give implementation. But From Java 1.8 we can give Impl., Inside Interface via Default and Static Methods.
+
+Default Methods:-
+1) Default methods enables you to add new functionality to existing interfaces. 
+EX: (In an interface(car) there will be un implemented methods and it will be implemented by the classes(Benz, Audi, Tata etc.) which implements it...So there will be existing unimplemented methods in that interface which is at production. so at the time If there is requirement to add new unimplemented method for a class(Tesla) we cannot add new un implemented method. It will affect the whole Classes which is associated with this interface. Because every class should implement this new unimplemented method...That may not be useful for the other classes. so this default methods comes into the picture. Other then Unimplemented functions who ever need this new requirement they can add it to their classes).
+
+2)Default methods are also known as defender methods or virtual extension methods.
+
+default void musicPlayer() {  
+		System.out.println("Music Player");
+	}  
+default is not access modifier it is a keyword...Access modifier will not be suitable in Interface and for default access modifier they will not mention anything.
+
+Default Methods are by default available for the Impl., Classes...
+
+============================================================================================================================
+Static Methods:-
+
+Static methods are useful to create utility functions which thr interface. Ex: Stream.of, Comparator.naturalOrder, Comparator.comparing...
+Interface's Static methods is by default not available for impl., classes..
+Java Interface static method is part of interface, we can't use it with impl., class objects.
+The only way to call the interface static method is through the interface name...
+Java interface static method is similar to default methods except, In default method we can override them in impl classes. but in static methods we cannot.
+
+public interface IStringUtils {
+	
+	public static String convertToUpperCase(String str) { //Static methods can have impl in interface after Java 1.8
+		return str.toUpperCase();
+	}
+	
+	public static String convertToLowerCase(String str) {
+		return str.toLowerCase();
+		
+	}
+
+}
+
+===============================================================================================================================
+Built-in Functional Interfaces:-
+
+Function: Function<T, R>
+It is a Functional interface...It is going to get one argument as an input and will do the required process and give output. If you want to give one argument as any input type and it performs any operation and it returns one output value in any return type...we can use this Function
+
+There is a single abstract method (SAM) inside Function, 
+apply(T t) --> Finally we need to call this function to invoke Function
+
+public void lambdaStyle() {
+		
+		Function<Integer, Double> func = usd -> usd * 81.5; // Function<T, R> --> T - type of Input arg, R - type of Return value
+		System.out.println(func.apply(10));
+		
+		
+	}
+
+There are two default or defender methods in Function... It is used to chain two Functions,
+andThen() : first it will execute which is out side the argument and will execute which is given as andThen argument
+
+compose() : first it will execute which is given as compose arugument and it will execute which is out side the argument
+
+Example:
+public class AndThenComposeExample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Function<String, String> tenth = study -> {
+			System.out.println("Complete tenth first");
+			return "Complete tenth first";
+			
+		};
+		
+		Function<String, String> eleventh = study -> {
+			System.out.println("After that come to eleventh");
+			return "After that come to eleventh";
+			
+		};
+		
+		tenth.apply("");
+		eleventh.apply("");
+		
+		tenth.andThen(eleventh).apply(""); //first it will execute tenth and will execute eleventh which is given as andThen argument
+		
+		tenth.compose(eleventh).apply("");//first it will execute eleventh which is given as compose arugument and it will execute tenth which is out side the argument
+
+	}
+
+}
+
+Output:- 
+Complete tenth first
+After that come to eleventh
+Complete tenth first
+After that come to eleventh
+After that come to eleventh
+Complete tenth first
+
+Predicate: Predicate<T>
+It is a Functional interface...It is going to get one argument as an input and will do the Conditional check process and give output as boolean. If you want to give one argument as any input type and it performs Conditional check operation and it returns one output value in Boolean return type...we can use this Predicate
+
+There is a single abstract method inside Predicate,
+test(T t) --> Finally we need to call this function to invoke Predicate
+
+Example:
+
+public class Eligbility {
+
+	public static void main(String[] args) {
+		
+		Predicate<Integer> obj = age -> age >= 18; //Only need to give the input type, no need to give explicitly output type in predicate...Bcz for output it            should be only in Boolean.
+		
+		System.out.println(obj.test(20));
+
+	}
+
+}
+
+There are three default or defender methods in Predicate... It is used to chain two Predicate functions,
+
+and(): If the given both predicate function is true then it will give true or else false
+or(): If any one predicate function is true then it will return true...if both gives false then it will return false
+negate: I will return the opposite to the predicate function's output
+
+Example:
+public class PredicateChainingExamples {
+	
+	Predicate<String> campusInterview;
+	Predicate<String> degreeStatus;
+	Predicate<Boolean> opposite;
+	
+	public void andExample() {
+		
+		campusInterview = interviewInput -> interviewInput.equalsIgnoreCase("yes");
+		degreeStatus = degreeInput -> degreeInput.equalsIgnoreCase("yes");
+		System.out.println("AND Example can I join the company ? " + campusInterview.and(degreeStatus).test("Yes"));
+		
+	}
+	
+	public void orExample() {
+		
+		campusInterview = interviewInput -> interviewInput.equalsIgnoreCase("yes");
+		degreeStatus = degreeInput -> degreeInput.equalsIgnoreCase("no");
+		System.out.println("OR Example can I join the company ? " + campusInterview.or(degreeStatus).test("Yes"));
+		
+	}
+	
+	public void negateExample() {
+		opposite = input -> input;
+		System.out.println("Negate Example : " + opposite.test(false));
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		PredicateChainingExamples obj = new PredicateChainingExamples();
+		obj.andExample();
+		obj.orExample();
+		obj.negateExample();
+		
+
+	}
+
+}
+
+Consumer: Consumer<T>
+It is a Functional interface...It is going to get one argument as an input and will do any required process and will not give any output. If you want to give one argument as any input type and it performs any operation and if you don't want to return any one output value...we can use this Consumer
+
+There is a single abstract method inside Consumer,
+accept(T t) --> Finally we need to call this function to invoke Function
+
+There is one default or defender method in Consumer...
+andThen() :  first it will execute which is outside the argument and will execute which is given as andThen argument
+
+
+Example:
+public class ConsumerExample {
+	
+	public void usingLambda() {
+		
+		Consumer<String> con1 = input -> System.out.println(input + " is a word");
+		Consumer<String> con2 = input -> System.out.println(input + " da mapla is an emotion");
+		
+		con1.accept("Vanakkam");
+		con2.accept("Vanakkam");
+		
+		con1.andThen(con2).accept("Vanakkam");;
+	}
+
+	public static void main(String[] args) {
+		
+		ConsumerExample obj = new ConsumerExample();
+		obj.usingLambda();
+
+	}
+
+}
+
+For-Each Function:
+
+For-Each loop introduced in Java 1.5
+For-Each Function introduced in Java 1.8
+It is also an function which is used to iterate same as for-each loop
+
+Example:
+//For-Each function after Java 1.8
+		Consumer<Integer> consumer = input -> System.out.println(input);
+		list.forEach(consumer);
+		
+		list.forEach(input -> System.out.println(input)); //Either we can give the consumer interface inside it or else directly give the Lambda inside it.
+
+
+Lower Bound Wildcard --> Lets's say we have a list that needs to accept Integer, then the Generic type can hold Integer. Who else can hold it? Parent type of the Integer? Yes. Number class can hold. and Object class can hold it. <? super A>....The Generic Type can hold the applied data type or the parent data types or class to that applied data type
+
+Upper Bound Wildcard --> Let's say we have to deal a method that has to work on the children type of a given data, we use Upper Bound. <? extends A>...The Generic Type can hold the applied data type or the children data types to that applied data type
+
+
+Supplier: Supplier<R>
+It is a Functional interface...It is straight opposite to Consumer...It will not get any argument as an input and will do any required process and will give output. If you don't want to give any argument as any input type and it performs any operation and if you  want to return any one output value...we can use this Supplier
+
+There is a single abstract method inside Supplier,
+get() --> Finally we need to call this function to invoke Functions
+
+There is no any default or static methods in supplier...
+Example:
+public class SupplierExample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Supplier<Object> obj = () -> { 
+			Calendar cal = Calendar.getInstance();
+			return cal.getTime();
+		};
+		System.out.println(obj.get());
+	}
+}
+
+BiFunction: BiFunction<T, U, R>
+It is same as Function...The only difference is...In this we can able to get two inputs and process it and give one output. Other than that they both are same. Same default methods and SAM 
+
+BiPredicate: BiPredicate<T, U>
+It is same as Predicate...The only difference is...In this we can able to get two inputs and process it and give one output. Other than that they both are same. Same default methods and SAM 
+
+BiConsumer: BiConsumer<T, U>
+It is same as Consumer...The only difference is...In this we can able to get two inputs and process it and give one output. Other than that they both are same. Same default methods and SAM 
+
+
+There is no BiSupplier...Bcz It will not get any Input
+
+Other functional Interfaces:-
+IntConsumer, IntPredicate, LongConsumer, LongFunction, LongPredicate, IntBinaryOperation, etc...
+These are all the functions used to minimize the work of compiler...For Ex: If we give Function and input as Integer...The compiler will autoboxing it to int and process it and autoboxing it and give result...So if we give directly IntFunction IT will get int, process it and give it as int...So work will be minimized for compiler.
+ 
+Refer this page for Functional Interfaces...https://docs.oracle.com/javase/8/docs/api/java/util/function/package-frame.html
+
+================================================================================================================================================
+Method Reference:-
+It is used to refer a method...It is mainly used for, If you have an interface and it has SAM or Abstract method in that time you need to implement it but already you have an impl for that...So instead of re-writing that impl go for method reference and use that existing impl for that method.
+If you don't have Existing Impl go with Lambda Expression and make Impl.
+
+Refer More about Method Reference in this page: https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html
+
+Kinds of Method References
+There are four kinds of method references:
+
+Kind	                                                                                Syntax	                                             Examples
+Reference to a static method	                                              ContainingClass::staticMethodName	             Person::compareByAge                                     
+                                                                                                                             MethodReferencesExamples::appendStrings
+
+Reference to an instance method of a particular object	                     containingObject::instanceMethodName            myComparisonProvider::compareByName	                                                                                                                     myApp::appendStrings2
+
+Reference to an instance method of an arbitrary object of a particular type	ContainingType::methodName	             String::compareToIgnoreCase
+                                                                                                                             String::concat
+
+Reference to a constructor	                                                  ClassName::new                             HashSet::new	                                                                          
+
+Static Method Reference:-
+Syntax:  ClassName::staticMethodName
+Here no need to create object for invoking static method...If the static method is inside the same class just call it by its method name or if it is in other class call the method name with the class name.
+
+Condition:
+The referencing method should be static 
+Both Reference static method's and Interface abstract method's parameter should be same and equal...Other Access modifier, return type and method name can be varied...It is not an issue.
+While using double colon operator no need to give parameter...ClassName::staticMethodName
+
+interface IAdd{
+	public void add(int a, int b);
+}
+
+public class StaticMethodReference {
+	
+	public static int sum(int val1, int val2) {
+		int val3 = val1 + val2;
+		System.out.println(val3);
+		return val3;
+	}
+
+	public static void main(String[] args) {
+		
+	//	IAdd obj = (a, b) -> System.out.println(a + B); // No need to re-write the same Impl...You can use the Satic methods impl for this using method reference
+		
+		IAdd obj = StaticMethodReference::sum; //While using double colon operator no need to give parameter
+		obj.add(2, 4);
+		
+	}
+}
+
+Instance Method Reference:
+Syntax:  instanceName or objectName::staticMethodName
+Here we need to create object bcz it is not static method.
+ 
+Condition:
+Both Reference instance method's and Interface abstract method's parameter should be same and equal...Other Access modifier, return type and method name can be varied...It is not an issue.
+While using double colon operator no need to give parameter...instanceName or objectName::staticMethodName
+
+interface IVanakkam{
+	public void vanakkam(String str);
+}
+public class InstanceMethodReference {
+	
+	public void greet(String name) {
+		System.out.println("Vanakkam " + name);
+	}
+
+	public static void main(String[] args) {
+		
+		InstanceMethodReference obj = new InstanceMethodReference();
+		IVanakkam ins = obj::greet;
+		ins.vanakkam("Joy");
+
+	}
+
+}
+
+Reference to an instance method of an arbitrary object of a particular type:
+arbitrary --> it means Random
+we are invoking the some object which is given by the user it can be random which can be particular type...so it is arbitrary (It is just we are referring any type of Instance method)
+Syntax: arbitraryType::methodName  For Ex:String::toLowerCase
+
+public class ArbitraryObjectOfAnyType {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+//		Function<String, String> lambda_lowerCase = input -> input.toLowerCase(); //Input is a String Object It is given by user is in any Type so it is Random and toLowerCase() is an Instance method of that arbitrary object
+//		System.out.println(lambda_lowerCase.apply("JESUWA"));
+		
+		Function<String, String> metRef_lowerCase = String::toLowerCase;   // arbitraryType::methodName
+		System.out.println(metRef_lowerCase.apply("JESUWA"));
+
+	}
+
+}
+
+Reference to a constructor:
+Syntax: ClassName::new  For Ex: HashSet::new
+
+Example:
+
+public class ConstructorReference {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// remove duplicates in list by converting list to set
+		//Traditional way
+		List<String> herosList = new ArrayList<>();
+		herosList.add("Batman");
+		herosList.add("Sperman");
+		herosList.add("Flashman");
+		herosList.add("Batman");
+		System.out.println(herosList);
+		
+		Set<String> herosSet = new HashSet<>(herosList);
+		System.out.println(herosSet);
+		
+		//using Lambda style
+		Function<List<String>, Set<String>> lambdaObj = list -> new HashSet<>(list);
+		System.out.println(lambdaObj.apply(herosList));
+		
+		//using method reference
+		Function<List<String>, Set<String>> mRObj = HashSet::new;
+		System.out.println(mRObj.apply(herosList));
+		
+
+	}
+
+}
+
+==========================================================================================================================================
+
+Comparable and Comparator:- This is not Java 8, this is before Java 8
+This two Interfaces are used for Sorting.
+
+Comparable:
+All the Wrapper class like Integer, String, Double, etc...will implements the Comparable interface internally...We can see it by expanding the definition for Individual Wrapper Classes...For other explicit class you need to implement Comparable interface with that class and you need to impl the unimpl method.
+
+compareTo(T o) -->Unimplemented method inside the Comparable...It will always return int...We need to impl this
+after that we need to call sort function....Ex: Collections.sort(list);...It will auto call the compareTo() function...Ne need to call explicitly.
+
+Dis-advantage:
+If you sort based on a field in that class...using comparable interface...next you need to sort that same class elements using some other field or multiple fields based sorting...you cannot do it.
+Without implementing the Comparable interface in a class...We cannot use it.
+
+Comparator:
+compare(o1, o2) -->Unimplemented method inside the Comparator...It will always return int...We need to impl this
+after that we need to call sort function....Ex: Collections.sort(list);...It will auto call the compare() function...Ne need to call explicitly.
+
+
+When to do what?
+If you want to sort in a default natural order sorting and the class implements Comparable go with comparable, If you have created an user defined class and if you can implement the comparable intherface go with comparable...and if you can only do sorting with single field or you want to do only single sorting method (like either Ascending or decending) go with comparable.
+
+
+If you want to sort in a default natural order sorting and the class doesn't implements Comparable go with comparator, If you have created an user defined class and if you can't implement the comparable intherface go with comparator...and if you want to do sorting with multiple fields or you want to do multiple sorting method (like both Ascendion and decending and many more) go with comparator.
+
+Integer Overflow Issue:
+While sorting we will compare two objects by subtracting and we will sort it...If we get positive number first obj number is big else if we get negative number second obj number is big or if we get zero both are equal...So with this we will sort...In rare case when we go higher or lower number in Integer limit we will face Integer Overflow issue.. We wont get the result correctly. For this issue don't go this way obj1 - obj2...go with compare(obj1, obj2)
+
+============================================================================================================================================
+
+Streams API:-
+It is used for Complex operation on a collection of data.
+A sequence of elements from a source that supports aggregate operations(data processing operations).
+sequence of elements --> After calling the streams method on the source, the source is transformed into a sequence of elements.
+source --> It could be anything. Collections, Arrays, I/O resources.
+aggregate operations --> a whole formed by combining several disparate elements, Disperate --> essentially different in kind. In essence, these aggregate operations are for processing the data.
+
+Characteristics of Stream:
+Pipelined: Most Stream functions return another stream, which makes it easier to chain or pipeline.
+Internal Iteration: Unlike Collections, we don't have to take care of the iterations here it's happening behind the scenes.
+
+Streams vs Collections: Difference
+Streams --> Lazily Constructed, Internally iterated    Ex:- Watching movies in Netflix, Prime, Youtube...Go to netflix account and select the movie see it...While watching the movie it will parallelly buffer and temporarily download the upcoming scences and will show it...
+
+Collections --> Eagerly Constructed,Internally iterated     Ex:- Watching movies in CD, Pendrive...We need to download it before and we need to get arranged for watching and need to show it...
+
+Stream Operations or Functions:-
+There are two types of operations in Streams:
+Intermediate Operations
+Terminal Operations
+
+Intermediate Operations:-
+These Operations return another Stream and this enables the other intermediate operations connected to form a pipeline which acts as a query.
+Just like Streams itself, these intermediatory operations are also lazy. Meaning, they won't perform any operations until a terminal method is invoked.
+filter(), map(), limit(), sorted(), distinct(), etc.
+
+Terminal Operations:-
+Terminal Operations conclude the pipeline and force the pipeline to produce a result.
+The obtained result will be a non-stream value. This means the terminal operations will not produce a stream in return or in some cases it may not return anything at all.
+collect(), count(), forEach(), etc.
+
+filter():
+This is used to filter elements according to the users requirement from the given predicate related Input source. We need to give predicate related Input source.
+
+sorted():
+This is used to sort the elements according to the requirement.
+
+Distinct():
+This function is used to remove the duplicate elements or return the distinct or unique elements. 
+
+count():
+It is a terminal operation. The return value of count operation is the count of elements in the stream. It will return long value.
+
+Limit():
+This function is an Intermediate operation. It is used to limit the elements and return as another stream. It will get Long value as Input. Ex: We have list of 5 elements...If we give limit(3) then it will return the first 3 elements as another stream. If we give limit(100) then also it will return the 5 elements why bcz it will return all the elements till 100 comes. If we give limit(-1) then it will give error as Illegal argument exception.
+
+skip():
+This is Intermediate Operations. It is used to skip the elements and return as another stream. It will get Long value as Input. Ex: We have list of 5 elements...If we give skip(3) then it will return the last 2 elements as another stream. If we give skip(100) then also it will skip the 5 elements why bcz it will skip all the elements till 100 comes. If we give skip(-1) then it will give error as Illegal argument exception. If we give skip(0) the it will not skip anything and return same input as another stream.
+
+map():
+This is Intermediate Operations. It will get Function as an argument. It will retrieve particular data from the given input source and return it as an another stream.
+So finally when the map comes in to the picture the stream of data will be transformed to some other stream form like the returned stream values type will be changed..For ex: If you have Dish class...and it has data elements like name, price, type..etc. and you have list of dish items in menu using map function if you get dish names then the return type will be List<String>...not List<Dish> 
+
+flatMap():
+This is Intermediate Operations. It is used to flat the elements which is returned from the map function...Ex: We have two list, in each list we have list of items List<List<String>>...So While using map function if we need to print all the List of items we will Stream it, use map and collect all...using this we will print it..At the time the two list will be populated. So what if we get the elements of both list into a single list List<String>... So It is called Flat.
+
+anyMatch():
+It is Short circuiting Terminal Operation. Using predicate related input finding any match. It is Short circuit Terminal Operation, bcz if we have a list of strings so we need to find any string match according to the requirement...If the matching requirement is in the first index while it is in the first index it will break the operation and return the result as true...If the matching requirement is in the third index while it is in the third index it will break the operation and return the result as true...So like short circuit this operation also will be performed.
+
+allMatch():
+It is Short circuiting Terminal Operation. Using predicate related input finding any match. if we have a list of strings so we need to find whether the all the strings  are matching in the list is same as the required matching string. Then it will populate True...
+
+noneMatch():
+It is Short circuiting Terminal Operation. Using predicate related input finding any match. if we have a list of strings so there should not match any string in the list is same as the required matching string. If it matches any one string then it will give false..If it does not match any string then it will populate True.
+
+findFirst():
+It is Short circuiting Terminal Operation. It will always return the first element whether the I/p is list, set, etc...It will return the first element as Optional stream. Either it is stream() or it is parallelStream() always it will return the first element of the input source.
+
+
+findAny():
+It is Short circuiting Terminal Operation. It can return any random element whether the I/p is list, set, etc...It will return any random element as Optional stream. If it is stream() mostly 99.9% will return the first element, if it is parallelStream() it will return the random element of the input source.
+
+reduce():
+It is Terminal Operation. Every Terminal operation will transform the output and will give it. But in this reduce() function It will not only transform the output it will also reduce the output as small piece of information. Ex: If we have list of numbers, we need to get the sum of this numbers so we will be getting the output in a digits. So List of number is reduced to a digits.
+
+Identity --> initial value declared to the variable. Identity is not mandatory. If the Identity is not given in that time inside the reduce() only the accumulator is given, the Identity is empty. If there is some value with that it will do some operation. Without identity it cannot do operation just it will return empty or optional value. Optional has empty type object. So the return type we need to store as Optional<type>.
+Accumulator --> It is an Aggregator. It is a function which has two are more operand and it will do any operation which is required.
+Combiner --> In Accumulator, The two Operand's datatype and the output of two operand's datatype is going to be different at the time Combiner will be used.
+
+reduce(Identity, Accumulator)
+Ex:
+public class ReduceExample {
+	public static void main(String[] args) {
+		List<Integer> numbers = Arrays.asList(1, 2, 4, 6, 3, 7);
+		int result = numbers.stream().reduce(0, (sum, elements) -> sum += elements); //reduce(Identity, Accumulator)
+		System.out.println(result);
+	}
+}
+
+Ex: With combiner
+int result = perosnList.stream().reduce(0, (total, person) -> total + person.getAge(), Integer::sum ); //reduce(Identity, Accumulator, Combiner)
+
+collect():
+It is a terminal operation. It is used to organize the data and return the result.
+
+Collectors:
+It is a Class. It is used to organize the data and return the result. In this class it has many functions:
+toList(), toSet(), toCollection(), etc...
+These functions will change from type oof data to another type of data...From Stream to List, Stream to set, Stream to mao, Stream to Collection, Stream to LinkedList etc...
+
+toUnmodifiableList():
+If we use this function we cannot add new elements to the list...The List will become Read only.. Not for Write. If we try to add elements then we will face UnSupportedOperation Exception.
+
+toUnmodifiableSet():
+If we use this function we cannot add new elements to the set...The Set will become Read only.. Not for Write. If we try to add elements then we will face UnSupportedOperation Exception.
+
+==========================================================================================================================================
+Optional Class:-
+This class is mainly used to handle the Null pointer Exception. For Ex, We have an class customer and it have data members as name and address...There are many customers as List of customers. So at that time if you are getting some customer details..If some details is not there it will hit null pointer exception for such case we will handle it manually..At that time, here we have only two data member and small customer list so it is ok for this...In real world scenario you will have bulk of customers and more data members at that time of each and every step you cannot handle exceptions. So at that time Optional Class comes into the picture.
+
+There are Three Static functions inside Optional Class, Using this three Functions we can create objects for Optional class
+
+empty() --> If you don't have any arguements or data so you want to create an empty optional class object then use it. It will create an empty object
+of() --> If you have an arguments or data for that you want create an optional object then use it. It will create an optional class object for Non-Null values. Here if the given value is null then it will show Null-pointer Exception.
+ofNullable() --> If you don't know whether there is argument or not. whether it is null or empty in that case you can use this. It will create an Optional class object for that case. Here if the given value is null then also it will not show Null-pointer Exception.
+
+Functions in Optional Class:
+isPresent(): If the Optional has any value it will give true else will give false.
+isEmpty(): If the Optional don't have any value it will give true else will give false.
+ifPresent(): Only if the Optional have any value it will do the require operation which is mentioned inside the ifPresent() method.
+orElse(): If the Optional retruns Null, you can use this orElse() method to return any other String, etc.. which is mentioned inside orElse() method.
+get(): We can use this get() method to retrive the values which is inside the Optional.
+orElseGet(): If the Optional retruns Null, you can use this orElseGet() method to return any other function which is mentioned inside orElse() method. 
+orElseThrow(): If the Optional retruns Null, you can use this orElseGet() method to throw any Exceptions including custom exceptions which is mentioned inside orElseThrow() method.
+
+Same as above explanation: 
+empty → Returns an empty Optional instance
+of→  Returns an Optional wrapping of the given value or throws a NullPointerException if this value is null
+ofNullable→ Returns an Optional wrapping the given value or the empty Optional if this value is null
+filter → If the value is present and matches the given predicate, returns this Optional; otherwise returns the empty one
+map→  If a value is present, applies the provided mapping function to it
+flatMap → If a value is present, returns the Optional resulting from the application of the provided mapping function to it; otherwise returns the empty Optional
+get → Returns the value wrapped by this Optional if present; otherwise throws NoSuchElementException
+ifPresent →  If a value is present, invokes the specified consumer with the value; otherwise does nothing
+isPresent→  Returns true if there is a value present; otherwise false
+isEmpty → returns true if empty else false
+orElse→ Returns the value if present or the given default value otherwise
+orElseGet→ Returns the value if present or the one provided by the given Supplier otherwise
+orElseThrow→ Returns the value if present or throws the exception created by the given Supplier otherwise
+
+====================================================================================================================================================

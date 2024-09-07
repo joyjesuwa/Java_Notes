@@ -1,0 +1,107 @@
+Actuator in Spring Boot:-
+
+Spring Boot provides actuator to monitor and manage our application. Actuator is a tool which has HTTP endpoints. 
+when application is pushed to production, you can choose to manage and monitor your application using HTTP endpoints.
+
+Spring Boot Actuator is a sub-project of the Spring Boot Framework. 
+It includes a number of additional features that help us to monitor and manage the Spring Boot application. 
+It contains the actuator endpoints (the place where the resources live). We can use HTTP and JMX endpoints to manage and monitor the Spring Boot application. 
+If we want to get production-ready features in an application, we should use the Spring Boot actuator.
+
+
+There are three main features of Spring Boot Actuator:
+
+Endpoints
+Metrics
+Audit
+
+Endpoint: The actuator endpoints allows us to monitor and interact with the application. Spring Boot provides a number of built-in endpoints. 
+          We can also create our own endpoint. We can enable and disable each endpoint individually. 
+          Most of the application choose HTTP, where the Id of the endpoint, along with the prefix of /actuator, is mapped to a URL.
+
+For example, the /health endpoint provides the basic health information of an application. The actuator, by default, mapped it to /actuator/health.  
+
+
+Metrics: Spring Boot Actuator provides dimensional metrics by integrating with the micrometer. 
+         The micrometer is integrated into Spring Boot. It is the instrumentation library powering the delivery of application metrics from Spring. 
+         It provides vendor-neutral interfaces for timers, gauges, counters, distribution summaries, and long task timers with a dimensional data model.
+
+
+Audit: Spring Boot provides a flexible audit framework that publishes events to an AuditEventRepository. 
+       It automatically publishes the authentication events if spring-security is in execution.
+
+Implementation:-
+
+We can also give another port name to activate actuator in SB
+management.server.port=9000
+
+<dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+How to enable / disable Spring Boot Actuator endpoints ?
+
+By default, all endpoints except for shutdown are enabled. To configure the enablement of an endpoint, use its management.endpoint..enabled property. 
+The following example enables the shutdown endpoint:
+
+  management.endpoint.shutdown.enabled=true    
+
+If you prefer endpoint enablement to be opt-in rather than opt-out, 
+set the management.endpoints.enabled-by-default property to false and use individual endpoint enabled properties to opt back in. 
+The following example enables the info endpoint and disables all other endpoints
+
+  management.endpoints.enabled-by-default=false
+  management.endpoint.info.enabled=true
+
+Actually the spring boot application endpoints may provide sensitive information, so careful consideration should be given before enabling it.
+
+  management.endpoint.health.show-details=always or never
+  info.app.java.source=11
+  info.app.java.target=11
+  info.app.encoding=UTF-8
+  info.name.of.app=Actuator Demo Application
+
+  management.endpoint.<id>.enabled => can be used to enable/disable the feature
+  management.endpoint.enable-by-default=false
+
+  management.endpoint.web.exposure.include=health,info
+  management.endpoint.web.exposure.include=* (also)
+  management.endpoint.web.exposure.exclude=beans,metrics
+
+Why Spring Boot Actuator ? Its Benefits ?
+
+1.It allows us to monitor our application
+2.To gather the application’s metrics
+3.Understand the real traffic
+4.We can get the production grade tools via the HTTP end points and get the application metrics.
+5.we are also free to configure and extend these features in many ways.
+6.Easy to implement the custom metrics for an application and expose as an HTTP endpoints.
+7.The actuator endpoints are secured, hence application's sensitive information are protected.
+
+How to write custom endpoints ?
+
+Spring also provides adding custom endpoints if you have any application specific feature that you want to exapose and monitor. 
+Just add a @Bean annotated with @Endpoint, 
+In this class any methods annotated with @ReadOperation, @WriteOperation, or @DeleteOperation are automatically exposed over JMX and, in a web application, over HTTP as well. 
+Endpoints can be exposed over HTTP using Jersey, Spring MVC, or Spring WebFlux.
+
+  @Component
+  @Endpoint(id = "customFeatures")
+  public class CustomFeatureEndpoint {
+
+      private Map<String, Object> features = new ConcurrentHashMap<>();
+
+      @ReadOperation
+      public Map<String, Object> customFeatues(){
+          features.put("customFeature", "example - customer bought the product using premium account.");
+          return features;
+      }
+  }
+
+Using a different management port for actuator :
+
+management.server.port=9000
+
+For ex:
+http://localhost:9000/actuator/health

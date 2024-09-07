@@ -1,0 +1,32 @@
+
+Stub:-
+
+A stub is a fake class that comes with preprogrammed return values. 
+It's injected into the class under test to give you absolute control over what's being tested as input. 
+A typical stub is a database connection that allows you to mimic any scenario without having a real database.
+
+Stub is nothing but a class which returns a dummy data.
+
+Easier Static Imports:-
+
+Window > Preferences > Java > Editor > Content Assist > Favorites
+org.junit.Assert
+org.mockito.BDDMockito
+org.mockito.Mockito
+org.hamcrest.Matchers
+org.hamcrest.CoreMatchers
+
+mock:-
+
+A Mock is very dynamic, not hard-coded
+
+Mock method is defined in Mockito class
+you can mock a class or an interface
+Mock creates mock object for the class or interface which is passed as parameter.
+
+when() is used to stub the method and
+thenReturn() sets a return value to be returned when the method is called
+
+Using stubbing we train the mock objects about what values to return when its methods are invoked. Mockito provides when–then stubbing pattern to stub a mock object’s method invocation. 
+
+The mock API invocation goes into when() which is a static Mockito API method and the value that we want the want the mock to return goes into the then() API.

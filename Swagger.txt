@@ -1,0 +1,259 @@
+Swagger:-
+    1. It is used to generate the Documentation for REST API
+    2. It is also used to test the REST API
+    3. It will generate the documentation in JSON Format
+It is a Tool to Develop,Interact and Document the REST API
+The Documentation and API is provided to the consumer
+For Example weather app  -->> The API will be provided by weather forcasting to the API Consumer(Weather app in mobile or someother device)
+
+<!-- Swagger Dependencies-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+<!--Application Properties-->
+server.port=9096
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://localhost:3306/retailsys
+spring.datasource.username=root
+spring.datasource.password=Sql@@18022000
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL8Dialect
+spring.jpa.show-sql: true
+spring.jpa.open-in-view=true
+spring.mvc.pathmatch.matching-strategy=ant-path-matcher
+<!--***-->
+
+package com.example.demo.configuration;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@Configuration
+@EnableSwagger2
+public class SwaggerCongiguration {
+	
+	@Bean
+	public Docket apiDoc() {
+		
+		return new Docket(DocumentationType.SWAGGER_2).select()
+		         .apis(RequestHandlerSelectors.basePackage("com.example.demo.controller"))
+		         .build()
+		         .apiInfo(apiInfo());
+	}
+	
+	private ApiInfo apiInfo() {
+		return new ApiInfoBuilder().title("Retail System API")
+				.description("Retail System API  Documentation generated using SWAGGER_2")
+				.termsOfServiceUrl("https://youtu.be/NOY-LjNHSpU")
+				.license("Retail System REST API License")
+				.licenseUrl("https://youtu.be/NOY-LjNHSpU").version("1.0").build();
+	}
+	
+
+}
+
+
+
+
+
+package com.example.demo.configuration;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import static springfox.documentation.builders.PathSelectors.regex;
+
+@Configuration
+@EnableSwagger2
+public class SwaggerConfiguration {
+	
+	@Bean
+	public Docket postApi() {
+		return new Docket(DocumentationType.SWAGGER_2).groupName("com.example").apiInfo(apiInfo()).select().paths(regex("/userprofile.*")).build();
+	}
+	
+	private ApiInfo apiInfo() {
+		return new ApiInfoBuilder().title("Retail System API")
+				.description("Retail System API  Documentation generated using SWAGGER_2")
+				.termsOfServiceUrl("https://youtu.be/NOY-LjNHSpU")
+				.license("Retail System REST API License")
+				.licenseUrl("https://youtu.be/NOY-LjNHSpU").version("1.0").build();
+	}
+
+}
+
+
+<!-- Second Type-->
+
+
+package com.example.demo.configuration;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.ResponseMessageBuilder;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+
+
+@Configuration
+@EnableSwagger2
+public class SwaggerConfiguration {
+	
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.example."))
+				.paths(PathSelectors.any())
+				.build()
+				.apiInfo(apiInfo())
+				.useDefaultResponseMessages(false)
+				.globalResponseMessage(RequestMethod.GET, newArrayList(new ResponseMessageBuilder().code(404))
+						.message("500 message")
+						.build(),
+				new ResponseMessageBuilder().code(403)
+				.message("Forbidden!!!")
+				.build());
+	}
+	
+	private ApiInfo apiInfo() {
+		ApiInfo apiInfo = new ApiInfo(title:"Retail System API",description:"Retail System API  Documentation generated using SWAGGER_2",termsOfServiceUrl:"https://youtu.be/NOY-LjNHSpU",license:"Retail System REST API License",licenseUrl:"https://youtu.be/NOY-LjNHSpU",version:"1.0").build();
+		return new ApiInfoBuilder()
+				
+				
+				
+	}
+
+}
+
+
+                <dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+package com.example.demo.configuration;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+
+@Configuration
+public class SwaggerConfiguration {
+	
+	@Bean
+	public Docket swaggerConfig() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.paths(PathSelectors.ant("/userprofile/*"))
+				.build();
+				
+	}
+	
+}
+
+
+<!--Correct-->
+
+<!-- Swagger Dependencies-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+
+<!--Add this to Application.properties-->
+
+spring.mvc.pathmatch.matching-strategy=ant-path-matcher
+
+<!--Configuration class-->
+
+package com.example.demo.configuration;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@Configuration
+@EnableSwagger2
+public class SwaggerConfiguration {
+	
+	@Bean
+	public Docket apiDoc() {
+		
+		return new Docket(DocumentationType.SWAGGER_2).select()
+		         .apis(RequestHandlerSelectors.basePackage("com.example.demo.restcontroller"))
+		         .build()
+		         .apiInfo(apiInfo());
+	}
+	
+	private ApiInfo apiInfo() {
+		return new ApiInfoBuilder().title("Retail System API")
+				.description("Retail System API  Documentation generated using SWAGGER_2")
+				.termsOfServiceUrl("https://youtu.be/NOY-LjNHSpU")
+				.license("Retail System REST API License")
+				.licenseUrl("https://youtu.be/NOY-LjNHSpU").version("1.0").build();
+	}
+	
+
+}
+
+Model class annotation for description
+
+@ApiModelProperty(value = "It is User Name")
+private String userName;
+
+Rest Controller annotation for description
+
+@ApiOperation(value = "It will save the User")
+	public User saveUser(@RequestBody User user) {
+		return userServiceImplementation.saveUser(user);
+	}
+
+
+OpenAPI:-
+
+localhost:8085/v3/api-docs
+
+

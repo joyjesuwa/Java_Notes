@@ -1,0 +1,38 @@
+CSS () --> Cascading Style Sheet
+
+Types of CSS:-
+Inline
+Internal 
+External
+
+Div Tag:- <div>
+div tag has no specific default height...According to contents height it will be working...If there is no content in the div it will not work....If we set any heights in style without any content also it will work.
+
+Selectors:-
+1.Element Selector
+2.Class Selector --> If you have two or more same tags or elements at that time use Class attribute inside tag...And use the class value in CSS with dot (.classValue{})...This Class can be used any number of times in that HTML Page.
+3.ID Selector --> If you have two or more same tags or elements at that time use id attribute inside tag...And use the id value in CSS with hash (#idValue{})...This id can be used only one time in that HTML Page.
+4.Universal Selector --> If we use this selector...The style will be applied for the Entire HTML Page...For this use Asterisk in CSS(*{}).
+
+CSS Box Model:-
+Padding -- Space between content and border
+Border-- Space between padding and the page
+Margin
+
+If you want to set a border you need to to set Border-Color, Border-Width, Border-Style
+
+Display Property:-
+
+<h1>,<p>...etc -- It will take its width as the full screen
+<span> -- It will take its width as according to the content
+
+Block -- If we use this property, It will take its width as full screen
+Inline -- If we use this property, It will take its width according to the content..In this we cannot set width and height...There are 3 elements...first two is in inline and third is in block, So at that time first inline will be in first line width according to the content and 2nd element will be near by 1st element...Because Inline elements will allow elements before and after one another...But block elements will not allow before and after why because it will cover full width of the screen.
+Inline-block -- We can set its width and height...Though it is set it is Inline only...
+None - The element will disappear
+
+<nav>:-
+This tag is also a container like div tag...The only reason for using this tag is when some other user access the code they can easily understand that this is nav container and it has navigation elements.
+
+
+

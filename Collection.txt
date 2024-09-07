@@ -1,0 +1,177 @@
+Collection:-
+It is a Group of individual Objects.
+Collection (I) is the root Interface.
+We should go for Collection when we need to represent a group of individual objects as a Single Entity.
+Collection is under java.util Package.
+Collection has a common method which can be implemented:
+add()
+remove()
+
+There are three Interfaces under Collection:
+List
+Set
+Queue
+
+Map --> It is not under Collection. It is also representing a group of individual elements as a Single Entity. So it is also a Collection.
+==========================================================================================================================
+List:-
+List(I) is the Child of Collection(I).
+Insertion Order will be maintained
+Duplicate elements will be allowed
+We can insert Heterogeneous objects as well. (If generics are not used)
+
+There are four classes under List Interface:
+ArrayList
+LinkedList
+Vector
+Stack
+========================================================================================================================
+ArrayList:
+Insertion Order will be maintained
+Duplicate elements will be allowed
+List(I) is the Child of Collection(I). 
+
+ArrayList (C) is one of the classes provides implementation for the List(I).
+In list duplicate values are allowed and the insertion order is maintained. 
+The underlying DS is resizeable Array or Growable Array. 
+We can insert Heterogeneous objects as well. (If generics are not used)
+NOTE: All the collections can store Heterogeneous objects can be stored except TREE SET and TREE MAP.
+ArraList and vector implements RandomAccess, Serializable and Cloneable Interfaces
+RandomAccess is an Interface which helps to search elements in the List...For that fetching elements in List is Good.
+Synchronized-> No
+Thread safe-> NO
+Default capacity-10
+Fill Ratio or Load factor:1 or 100%
+Growth Rate: current_size + current_size/2
+ListIterator is used to traverse the List in both forward and reverse...Instead of loops we can use this also.
+Iteration with Iterator (NOTE: Not ListIterator), Iterator can only traverse forward but not on reverse. Hence we are using ListIterator for better usages.
+
+ArrayList is non-synchronized.It should not be used in multi-threaded environment without explicit synchronization.Hence, adding an element to the list when traversing through it will give concurrent modification exception. This is happening because when a thread is trying to read the elements from the list another thread is trying to add or remove an element from the same. 
+==================================================================================================================================================
+LinkedList:
+LinkedList is implemented using Doubly linked list. This is best suited for insertion and deletion operations.
+
+Unlike ArrayList, this is not the best for retrieving the data. Bcz in Doubly linked list it will be using nodes to store the value and has Previous and next node address. At the time If you want to search an element from middle of it or from last...It will start from first node and will move to next node with its address likewise it need to move till it finds the element. Bcz node only have the Previous and next node address. So It needs to move one by one. For small list it is not an issue in real world there might be large amount of data at the time it will be complicated.
+
+All the collections implements Serializable and cloneable Interfaces.
+LinkedList also implements those Interfaces but not RandomAccess Interface.
+RandomAccess is an Interface which helps to search elements in the List...For that fetching elements in List is Good.
+==============================================================================================================================================
+Vector:
+Underlying DS= Resizable Array or Growable Array
+Duplicates Allowed
+Insertion order is preserved
+NULL insertion is possible
+Heterogeneous objects are allowed
+Implements- Serializable, Cloneable and Random Access Interfaces
+Most of the methods present in Vector is Synchronized and it is Thread safe.
+
+Vector is present since Java 1.0 and is known as Legacy Class.
+The operations are much like ArrayList (introduced in 1.2) but the method names are bit lengthy.
+Vector is threadsafe and synchronized and gives poor perfromance.
+
+=================================================================================================================================
+Stack:
+
+Stack -> child class of Vector
+Follows LIFO (Last In First Out)
+Stack is present since Java 1.0 and is known as Legacy Class.
+==================================================================================================================================================
+
+Set:-
+Set(I) is the Child of Collection(I).
+Duplicate values are not allowed.
+Insertion orders is not maintained.
+It can insert Heterogeneous Objects (If generics are not used)
+
+There are Three classes and two Interfaces under Set Interface:
+HashSet
+   LinkedHashSet
+ SortedSet (I)
+ NavigableSet (I)
+   TreeSet --> This TreeSet Class is Implementing the SortedSet and NavigableSet.
+=====================================================================================================================================================
+HashSet:
+
+Set(I)-> HashSet (C) and LinkedHashSet(C) are implementations
+Set(I) -> SortedSet(Child Interface)->NavigableSet(I)=> TreeSet(C) is the implementation 
+Important points to remember:
+1. To store group of individual objects.
+2. Duplicates not allowed
+3. Insertion order will not be maintained
+4. Set(I) doesn't have any new methods other than given in Collection(I).
+5. DS for HashSet is Hash table
+6. If we add duplicate value to HashSet, simply it will return false to the add() and it won't throw any error or exception.
+7. We can insert null values
+8. Heterogeneous values can be added.
+9. Implements Serializable and Cloneable?-> Yes
+10. Data are stored based on hashcode, so search is very effective.
+11. Fill Ratio or Load factor:0.75 or 75%
+12. Default capacity-16
+
+===================================================================================================================================================
+LinkedHastSet:
+If you want to maintain insertion order then use LinkedHashSet...Diff. between HashSet and LinkedHashSet.
+LinkedHashSet->Child class of HashSet
+DS-> Hash table + Linked List
+Insertion order is preserved
+Duplicates not allowed
+Only one Null Key is allowed. If there is two are more null keys. The Key will have only single null key and the value will be overridden to the Last Entry of the Null Key's Value.
+==============================================================================================================================================
+TreeSet:
+
+TreeSet is the implementation class of SortedSet Interface.
+Does not allow duplicates.
+Sorts the elements
+Null values is not allowed. Bcz in TreeSet we will be sorting the values in Natural Sorting Order so it will be comparing the values to sort. At the time Null can't be compared. so It is not allowed.  So, Null-Pointer Exception will be raised
+It has 6 methods like first,last,headSet,tailSet,subSet and comparator.
+Difference between Hashset and Treeset, hash doesnt maintain order
+but Treeset maintains ascending or alphabetical order.
+DS-> Balanced Tree
+Heterogeneous data not allowed. If added Exception, ClassCast will occur
+For default natural sorting order,the objects should be homogeneous and comparable else class cast exception
+To say any class is comporable or not, the class should implement comparable interface.
+
+======================================================================================================================================
+Map:-
+Map (I) is not the child of Collection (I) and hence it is not considered to be a true collection.
+It represents data in Key-Value pair.
+Each and every Key-value pair is known as Entry.
+Duplicate Keys are not allowed in map, But Duplicate values are allowed.
+
+There are Three classes and two Interfaces under Set Interface:
+HashMap
+   LinkedHashMap
+ SortedMap (I)
+ NavigableMap (I)
+   TreeMap This TreeMap Class is Implementing the SortedMap and NavigableMap.
+
+HashMap:
+HashMap (C) is implementation class for Map (I).
+Duplicate Keys are not allowed in map, But Duplicate values are allowed.
+It uses a technique called Hashing to store elements.
+Only one Null Key is allowed. If there is two are more null keys. The Key will have only single null key and the value will be overridden to the Last Entry of the Null Key's Value.
+The order is not preserved as it uses hashing. So we can't predict the retrieval order of the elements inserted.
+A Value of the map can only be fetched using it's Key.
+It is not synchronised. So if it has to be used on multithreading environment, it has to be synchronised explicitly.
+Initial Capacity: 16 and Load Factor: 0.75.
+
+============================================================================================================================================
+LinkedHashMap:
+LinkedHashMap (C) is implementation class for Map (I).
+Duplicate Keys are not allowed in map, But Duplicate values are allowed.
+It uses a technique called Hash table + Linked List to store elements.
+Only one Null Key is allowed. If there is two are more null keys. The Key will have only single null key and the value will be overridden to the Last Entry of the Null Key's Value.
+The order is preserved as it uses Hash table + Linked List. So The elements will be in the Insertion order.
+A Value of the map can only be fetched using it's Key.
+It is not synchronised. So if it has to be used on multithreading environment, it has to be synchronised explicitly.
+Initial Capacity: 16 and Load Factor: 0.75.
+
+=================================================================================================================================================
+TreeMap:
+TreeMap (C) is implementation class for Map (I).
+Duplicate Keys are not allowed in map, But Duplicate values are allowed.
+Null Keys is not allowed. Bcz in TreeMap we will be sorting the Entries in Natural Sorting Order so it will be comparing the keys to sort. At the time Null can't be compared. so It is not allowed. So, Null-Pointer Exception will be raised
+The elements will be retrieved in Natural Sorting Order.
+
+====================================================================================================================================================

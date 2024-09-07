@@ -1,0 +1,74 @@
+Spring:-
+It is a Framework which is used to built the Enterprise Applications.
+
+IOC: Inversion of Control
+It is a Principle. That the Control will be taken by someone(Spring)...like configurations etc...
+
+DI: Dependency Injection
+It is a Design Pattern. Injecting the needed Objects into the Application. No Need to create an Object Manually... DI is mainly created to increase the Developers Productivity. Creation of Object and Managing and destroying objects will be taken care by DI.
+
+There are three types of Dependency Injection in Spring:
+Constructor Injection
+Setter Injection
+Field Injection
+
+Spring Boot:
+It is one of the Module in Spring. It is built on top of Spring Boot.
+It is Convention over Configuration.
+It has Embedded Tomcat Server inside it. It will be handling .jar files
+
+When .run() method invoked it will be creating a IOC container inside the JVM. All the Objects will be inside it.
+Application Context Interface and it's classes will be able to access the IOC Container
+@Component --> It will create an Object and manage the class for which is annotated...Will create object inside the container.
+@Autowired --> It is used to link two class.
+@Primary and @Qualifier --> It will be used incase of any confusion, For Ex: You have two Bean Class and it implements an Interface...While Autowiring the Interface to access the both classes....there will be some confusion which class need to be invoked...At the time either you can use @Primary in class level to make the class to invoke or else you can use @Qualifier("InstanceName") to invoke the class.
+
+Controller Layer:
+It is one of the layer in MVC. It is used the accept the Request and Response from the Web.
+Data will be either in XML or JSON.
+@Controller is used to denote the Controller class, It is Class-level annotation. If we use this you will get the whole layout(HTML Page) with data...But if you need to get just data...You need to use @ResponseBody annotation in Method-level to just give and get the Data...Not the whole Layout.
+Instead of using @Controller, use @RestController just to get the data, Controller + Response Body = Rest Controller
+@RequestMapping("") is an annotation is used to call the method which needs to be invoked....@RequestMapping("/Products") 
+@GetMapping
+@PostMapping
+@PutMapping
+@DeleteMapping
+@PathVariable --> It is used to take the param from the Client Env or http web link and bind it to the Parameter variable of the controller Method..@PathVariable("/products/{prodID}")
+@RequestBody --> It is used to get the Body value from the Client Env.
+
+Front Controller:-
+This is not created by us...It is created by Spring. If we have two or more cotroller. at the time the server will be confused to the request to which controller. So there comes the Front Controller. It has all the request mapping so It will direct request and response the respective Controller.
+
+Service Layer:-
+@Service is used to denote the Service Layer...which has the business logic
+
+Repository Layer:-
+@Repository is used to denote the Repository Layer...Database related operations will be done here
+
+JDBC(Java Database Connectivity)--> There are 7 steps to implement it.
+
+Spring JDBC --> JdbcTemplate
+
+Spring Data JPA:
+JPA(Java Persistance API): 
+This is a Principle. And it is implemented by many ORM tools...Popular is Hibernate
+
+ORM(Object Relational Mapping):
+It is used to map the Java Class Objects to the Database table columns and rows.
+
+JPA Repository:-
+JpaRepository is an Interface...It extends the CRUD Repository and other needed repositories. We need to Extend it with our Repository Interface or implements with our Repository Class.
+
+In application.properties file we need to configure the Database URL, Driver Name, Credentials if needed and etc...
+
+@Entity --> This will convert the Java Class Object to a Database Table
+@Id --> This is used to define the Primary Key of the table.
+
+
+
+
+
+
+
+
+

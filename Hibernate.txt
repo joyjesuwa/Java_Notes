@@ -1,0 +1,37 @@
+There are 4 options to generate primary keys:-
+
+GenerationType.AUTO
+The GenerationType.AUTO is the default generation type and lets the persistence provider choose the generation strategy.
+
+If you use Hibernate as your persistence provider, it selects a generation strategy based on the database specific dialect. 
+For most popular databases, it selects GenerationType.SEQUENCE.
+
+
+GenerationType.IDENTITY
+The GenerationType.IDENTITY is the easiest to use but not the best one from a performance point of view. 
+It relies on an auto-incremented database column and lets the database generate a new value with each insert operation. 
+From a database point of view, this is very efficient because the auto-increment columns are highly optimized, and it doesn’t require any additional statements.
+
+This approach has a significant drawback if you use Hibernate.
+ Hibernate requires a primary key value for each managed entity and therefore has to perform the insert statement immediately. 
+This prevents it from using different optimization techniques like JDBC batching.
+
+
+GenerationType.SEQUENCE
+The GenerationType.SEQUENCE uses a database sequence to generate unique values. 
+It requires additional select statements to get the next value from a database sequence. But this has no performance impact for most applications.
+
+If you don’t provide any additional information, Hibernate will request the next value from its default sequence.
+ You can change that by referencing the name of a @SequenceGenerator in the generator attribute of the @GeneratedValue annotation. 
+The @SequenceGenerator annotation lets you define the name of the generator, the name, and schema of the database sequence and the allocation size of the sequence.
+
+@Id
+@GeneratedValue(strategy=GenerationType.AUTO)
+@SequenceGenerator(name="car_generator", sequenceName = "car_seq", allocationSize=50)
+private Long id;
+
+
+GenerationType.TABLE
+The GenerationType.TABLE gets only rarely used nowadays. 
+It simulates a sequence by storing and updating its current value in a database table which requires the use of pessimistic locks which put all transactions into a sequential order. 
+This slows down your application, and you should, therefore, prefer the GenerationType.SEQUENCE, if your database supports sequences, which most popular databases do.

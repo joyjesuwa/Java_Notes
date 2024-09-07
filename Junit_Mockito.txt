@@ -1,0 +1,75 @@
+The method annotated with @BeforeEach runs before each test
+A method annotated with @Test defines a test method
+@DisplayName can be used to define the name of the test which is displayed to the user
+This is an assert statement which validates that expected and actual value is the same, if not the message at the end of the method is shown
+@RepeatedTest defines that this test method will be executed multiple times, in this example 5 times
+
+@Test
+Denotes that a method is a test method. Unlike JUnit 4’s @Test annotation, this annotation does not declare any attributes, since test extensions in JUnit Jupiter operate based on their own dedicated annotations. Such methods are inherited unless they are overridden.
+
+@ParameterizedTest
+Parameterized tests make it possible to run a test multiple times with different arguments.They are declared just like regular @Test methods but use the @ParameterizedTest annotation instead. In addition, you must declare at least one source that will provide the arguments for each invocation and then consume the arguments in the test method.
+
+@DisplayName
+Test classes and test methods can declare custom display names — with spaces, special characters, and even emojis — that will be displayed by test runners and test reporting.
+
+@BeforeEach
+Denotes that the annotated method should be executed before each @Test, @RepeatedTest, @ParameterizedTest, or @TestFactory method in the current class; analogous to JUnit 4’s @Before. Such methods are inherited unless they are overridden.
+
+@AfterEach
+Denotes that the annotated method should be executed after each @Test, @RepeatedTest, @ParameterizedTest, or @TestFactory method in the current class; analogous to JUnit 4’s @After. Such methods are inherited unless they are overridden.
+
+@BeforeAll
+Denotes that the annotated method should be executed before all @Test, @RepeatedTest, @ParameterizedTest, and @TestFactory methods in the current class; analogous to JUnit 4’s @BeforeClass.
+
+@AfterAll
+Denotes that the annotated method should be executed after all @Test, @RepeatedTest, @ParameterizedTest, and @TestFactory methods in the current class; analogous to JUnit 4’s @AfterClass.
+
+@Nested
+Denotes that the annotated class is a nested, non-static test class. @BeforeAll and @AfterAll methods cannot be used directly in a @Nested test class unless the "per-class" test instance lifecycle is used. Such annotations are not inherited.
+
+@Tag
+Used to declare tags for filtering  tests, either at the class or method level; analogous to  test groups in TestNG or Categories in JUnit 4. Such annotations are inherited at the class level but not at the method level.
+
+@Disabled
+Used to disable a test class or test method; analogous to JUnit 4’s @Ignore. Such annotations are not inherited. Example: @Disabled used to disable test class.
+
+
+
+Mockito:
+Mockito is an open-source testing framework used for unit testing of Java applications. It plays a vital role in developing testable applications. Mockito is used to mock interfaces so that a dummy functionality can be added to a mock interface that can be used in Unit Testing. Unit Testing is a type of software testing in which individual software components are tested. The primary objective of using the Mockito framework is to simplify the development of a test by mocking external dependencies and using them in the test code. And as a result, Mockito provides a simpler test code that is easier to understand, more readable, and modifiable. Mockito can also be used with other testing frameworks like JUnit and TestNG.
+
+@SpringBootTest
+@SpringBootTest annotation loads the full application context so that we can able to test various components. So basically, the @SpringBootTest annotation tells Spring Boot to look for the main configuration class (one with @SpringBootApplication, for instance) and use that to start a Spring application context.
+Spring Boot provides @SpringBootTest annotation for Integration testing.
+
+@WebMvcTest:
+@WebMvcTest annotation loads only the specified controller and its dependencies only without loading the entire application. For example, let's say you have multiple Spring MVC controllers in your Spring boot project - EmployeeController, UserController, LoginController, etc then we can use @WebMvcTest annotation to test only specific Spring MVC controllers without loading all the controllers and their dependencies. 
+Spring boot provides @WebMvcTest annotation for testing Spring MVC controllers (Unit testing).
+
+@DataJpaTest:
+Spring Boot provides the @DataJpaTest annotation to test the persistence layer components that will autoconfigure in-memory embedded database for testing purposes.
+The @DataJpaTest annotation doesn’t load other Spring beans (@Components, @Controller, @Service, and annotated beans) into ApplicationContext. By default, it scans for @Entity classes and configures Spring Data JPA repositories annotated with @Repository annotation.
+By default, tests annotated with @DataJpaTest are transactional and roll back at the end of each test.
+Spring boot provided @DataJpaTest annotation is not only to test Spring Data JPA repositories but it also supports to test JPA-related components.
+
+MockMvc:
+MockMvc is a part of the Spring MVC test framework which allows for testing controllers by performing requests and asserting responses without starting a full HTTP server. 
+
+@Spy:
+The @Spy annotation in Mockito is used to create a spy instance of a real object. Spies allow you to perform partial mocking, where some methods of the object are mocked while others retain their original behavior. This is particularly useful when you want to test a class with some real method calls and some mocked method calls. In this tutorial, we will demonstrate step by step how to use the @Spy annotation in Mockito.
+
+@ExtendWith(MockitoExtension.class): Integrates Mockito with JUnit 5, enabling the use of Mockito annotations.
+The @ExtendWith annotation in  JUnit 5 is used to register extensions.  Mockito provides a MockitoExtension class that can be used with the @ExtendWith annotation to enable Mockito annotations and simplify the creation of mocks.
+
+@Mock:
+@Mock creates a mock.
+The @Mock annotation is a shorthand way of creating mock objects. Instead of manually creating a mock using Mockito.mock(Class), you can annotate a field with @Mock to automatically create a mock instance.
+In many  software applications, business logic and data access logic are separated into service and repository layers, respectively. When  testing the service layer, it's often beneficial to mock the repository to ensure that it is tested in isolation. 
+
+@InjectMocks:
+@InjectMocks creates an instance of the class and injects the mocks that are created with the @Mock annotations into this instance.
+The @InjectMocks annotation in  Mockito is used to automatically inject mock objects into the object being tested. This is particularly useful when the class under test has dependencies that need to be mocked. Instead of manually injecting these mock objects, you can use @InjectMocks to automatically inject all the mocks marked with @Mock or @Spy into the tested object. In this tutorial, we will demonstrate step-by-step how to use the @InjectMocks annotation in Mockito.
+
+@RunWith:
+When writing  tests in  Mockito, we often use annotations like @Mock, @InjectMocks, @Spy, and @Captor to simplify the mock creation process. But for these annotations to be effective, they must be initialized. One of the ways to automatically initialize these annotations is by using the @RunWith(MockitoJUnitRunner.class) annotation. This ensures that all the Mockito annotations are initialized, which means we don't have to manually call MockitoAnnotations.initMocks(this).
