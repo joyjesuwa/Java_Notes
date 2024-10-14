@@ -1,0 +1,15 @@
+Kubernetes K8s:-
+It is an Orchestration Engine. 
+It is used to Deploy the Application and run and monitor.
+It is used to run and monitor the Dockerized(Spring Boot) Application in the Cluster of Nodes.
+If some application did not get start or due to some failure it has been crashed at the time it will monitor and it will start the application.
+Mainly it is used to keep the application stable at any cause.
+
+There are two types of node in Kubernetes Architecture:-
+Master Node
+Worker Node
+
+Our Application will inside POD which is in Worker Node. There it will be deployed and run. In one node there will be one application...It is recommended. More than one it is not recommended.
+Master Node will manage all the worker Nodes.
+Kubelet component is used for the communication between Master and worker node.
+Kube-proxy component is used for the user to access the application inside the worker node.

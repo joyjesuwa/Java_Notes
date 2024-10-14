@@ -1,0 +1,30 @@
+Docker:-
+Docker is a powerful tool used for developing, packaging, and deploying applications efficiently. Docker is a container management service. Docker was released in 2013. It is open-source and available for different platforms like Windows, macOS, and Linux. Docker is quickly shipping, testing, and deploying code.
+
+So that it reduces your delay between writing code and running it in production. You can create self-contained environments known as containers. That can run consistently on different platforms.
+
+Using one Docker Image we can create Container How much you want.
+
+Docker Registry:
+It is a place where we can find and manage lot of Docker Images.
+There are several Docker Registries available.
+But currently there is : Docker Hub
+Docker Registry is a collection of Images
+Docker Repository is having all the versions of that Images
+
+Docker Commands:
+docker --version
+docker images
+docker pull imgName
+docker pull imgName version
+docker run imgName
+docker run ImgName version
+docker ps
+docker run --name contName imgName
+docker run -d imgName   -->> de-attach with terminal
+docker run -d --name contName imgName
+docker stop contName Or contID
+docker -d -p localPort:contPort imgName  --> Port forwarding, Publishing.
+docker logs contName Or contID
+docker ps -a
+

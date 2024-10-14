@@ -1,0 +1,8 @@
+Apache Kafka:
+It is a messaging system.
+A Messaging system is responsible for transferring data from one service to another service.
+So the applications can focus on data, but not worry about how to share it.
+It is an asynchronous communication between client and other services.
+Publish-Subscribe System - It is like It will publish the data. If you want you can subscribe it and you can also get the data.
+Example:- Apache Kafka, RabbitMQ and ActiveMQ.
+Apache Kafka is a distributed publish-subscribe messaging system.

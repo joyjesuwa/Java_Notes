@@ -1,31 +1,41 @@
-Mongo Repository:-
+No SQL:-
+No SQL is a type of Database design to store, manage and retrieve data without the Structured format of the Traditional Relational Database.
+It allows for the flexible schemas, scalability, and high performance, making it suitable for large-scales and real-time applications.
+NoSQL databases can handle a variety of data types, such as documents, key-value pairs, graphs and wide-columns.
 
-MongoRepository is an interface provided by Spring Data in the package org.springframework.data.mongodb.repository.
-MongoRepository extends the PagingAndSortingRepository and QueryByExampleExecutor interfaces that further extend the CrudRepository interface. 
-MongoRepository provides all the necessary methods which help to create a CRUD application and it also supports the custom derived query methods.
+MongoDB:-
+MongoDB is popular NoSQL databases that uses a flexible, document-oriented data model to store data in JSON-like BSON format.
+It supports dynamic schemas, making it easy to store and query unstructured data.
+MongoDB is known for its scalability, performance, and ability to handle large volumes of data across distributed systems.
 
-Mapping annotation overview:-
+JSON:-
+JavaScript Object Notation is a lightweight data interchange format that's easy for humans to read and write, and easy for machines to parse and generate.
+It uses a simple text format to represent structured data objects, arrays, and key-value pairs.
 
-  The MappingMongoConverter can use metadata to drive the mapping of objects to documents. An overview of the annotations is provided below
+BSON:-
+BSON(Binary JSON) is a binary-encoded serialization format that extends JSON by adding data types like integer and dates, making it more efficient for storage and retrieval.
+It is the primary data format used by MongoDB for storing documents and making remote procedure calls.
 
-       @Id - applied at the field level to mark the field used for identiy purpose.
+NoSQL is termed non-SQL. We won’t use SQL to write queries in No SQL. It is not relational but it gives us an organized way of storing data. The data is stored in the form of documents rather than tabular form. The best example for NoSql is Mongo DB. In SQL we will use the term key-value pairs but in Mongo DB we will use field-value pairs. Documents are stored and the group of documents is called “Collection”. The document will be in JSON format. The data is called a “Document” and the collection of documents is called a “Collection”.
 
-       @Document - applied at the class level to indicate this class is a candidate for mapping to the database. You can specify the name of the collection where the database will be stored.
+Databases, collections, documents are important parts of MongoDB without them you are not able to store data on the MongoDB server. A Database contains a collection, and a collection contains documents and the documents contain data, they are related to each other. 
 
-       @DBRef - applied at the field to indicate it is to be stored using a com.mongodb.DBRef.
+Database
+In MongoDB, a database contains the collections of documents. One can create multiple databases on the MongoDB server.  
 
-       @Indexed - applied at the field level to describe how to index the field.
+View Database:
+To see how many databases are present in your MongoDB server, write the following statement in the mongo shell:  
 
-       @CompoundIndex - applied at the type level to declare Compound Indexes
+show dbs
 
-       @GeoSpatialIndexed - applied at the field level to describe how to geoindex the field.
+Creating Database:
+In the mongo shell, you can create a database with the help of the following command:  
 
-       @Transient - by default all private fields are mapped to the document, this annotation excludes the field where it is applied from being stored in the database
+use database_name 
 
-       @PersistenceConstructor - marks a given constructor - even a package protected one - to use when instantiating the object from the database. Constructor arguments are mapped by name to the key values in the retrieved DBObject.
+This command actually switches you to the new database if the given name does not exist and if the given name exists, then it will switch you to the existing database. Now at this stage, if you use the show command to see the database list where you will find that your new database is not present in that database list because, in MongoDB, the database is actually created when you start entering data in that database. 
 
-       @Value - this annotation is part of the Spring Framework . Within the mapping framework it can be applied to constructor arguments. This lets you use a Spring Expression Language statement to transform a key's value retrieved in the database before it is used to construct a domain object. In order to reference a property of a given document one has to use expressions like: @Value("#root.myProperty") where root refers to the root of the given document.
+Schemaless:
+As we know that MongoDB databases are schemaless. So, it is not necessary in a collection that the schema of one document is similar to another document. Or in other words, a single collection contains different types of documents.
 
-       @Field - applied at the field level and described the name of the field as it will be represented in the MongoDB BSON document thus allowing the name to be different than the fieldname of the class.
 
-  The mapping metadata infrastructure is defined in a seperate spring-data-commons project that is technology agnostic. Specific subclasses are using in the MongoDB support to support annotation based metadata. Other strategies are also possible to put in place if there is demand.
